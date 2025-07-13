@@ -137,6 +137,12 @@ The backend can also be deployed on other platforms that support Python/FastAPI:
 | `/api/challenge` | POST | Submit challenge answers |
 | `/api/regenerate-questions` | POST | Generate new challenge questions |
 
+### API Collection (Postman)
+
+You can explore and test the API using the public Postman collection:
+
+[**View Postman Collection**](https://aryansaini-1859250.postman.co/workspace/3f56f51a-c3bb-41cf-808b-3ed26afa082e/collection/46717309-90dab571-ee00-4327-a871-3cef0dd98659?action=share&source=copy-link&creator=46717309)
+
 ## Usage
 
 1. **Upload Document**: Drag and drop or click to select a PDF/TXT file
@@ -223,19 +229,5 @@ REACT_APP_ENVIRONMENT=development
 ```
 
 **Note**: In production on Vercel, `REACT_APP_API_URL` points to the Render backend URL.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
 
 **Built with ❤️ using Google Gemini AI, React, and FastAPI**

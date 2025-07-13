@@ -1,0 +1,1129 @@
+{
+	"info": {
+		"_postman_id": "90dab571-ee00-4327-a871-3cef0dd98659",
+		"name": "GenAI Document Assistant",
+		"description": "Upload a document (PDF/TXT) to interact with it. Supports Q&A, content-based challenges, and provides an automatic summary.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46717309",
+		"_collection_link": "https://aryansaini-1859250.postman.co/workspace/3f56f51a-c3bb-41cf-808b-3ed26afa082e/collection/46717309-90dab571-ee00-4327-a871-3cef0dd98659?action=share&source=collection_link&creator=46717309"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"health"
+							]
+						},
+						"description": "Health check endpoint with CORS headers for debugging."
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/health",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"health"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						}
+					]
+				},
+				{
+					"name": "Http Upload Document",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "(Required) ",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/upload?num_questions=3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "num_questions",
+									"value": "3"
+								}
+							]
+						},
+						"description": "Upload and process a document for AI analysis.\n\nThis endpoint handles document upload, text extraction, and generates both\na summary and challenge questions using AI. The processed content is stored\nin memory for use by other endpoints.\n\nArgs:\n    file (UploadFile): The uploaded document file (PDF or TXT)\n    num_questions (int): Number of challenge questions to generate (3-10)\n    \nReturns:\n    dict: Contains filename, AI-generated summary, and list of questions\n    \nRaises:\n    HTTPException: \n        - 400: If file format is unsupported or num_questions is invalid\n        - 500: If document processing fails\n        \nExample Response:\n    {\n        \"filename\": \"document.pdf\",\n        \"summary\": \"This document discusses...\",\n        \"questions\": [\"What is the main topic?\", \"...\"]\n    }"
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"description": "(Required) ",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/upload?num_questions=3",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"upload"
+									],
+									"query": [
+										{
+											"key": "num_questions",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						},
+						{
+							"name": "Validation Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"description": "(Required) ",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/upload?num_questions=3",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"upload"
+									],
+									"query": [
+										{
+											"key": "num_questions",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"nulla dolore consequat\",\n        \"adipisicing amet quis anim\"\n      ],\n      \"msg\": \"Lorem\",\n      \"type\": \"ipsum velit aliquip\"\n    },\n    {\n      \"loc\": [\n        \"tempor\",\n        \"dolor cupidatat\"\n      ],\n      \"msg\": \"cupidatat deserunt elit\",\n      \"type\": \"laborum et adipisicing ipsum\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Http Upload Document",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "multipart/form-data"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"description": "(Required) file",
+											"type": "file",
+											"src": "postman-cloud:///1f05fea3-0dfb-4a80-b945-0541278a877d"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/upload?num_questions=3",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"upload"
+									],
+									"query": [
+										{
+											"key": "num_questions",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 13 Jul 2025 13:10:59 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "605"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "rndr-id",
+									"value": "f5864a2f-13a0-4a0b"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "95e905f8ada98ae1-DEL"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"filename\": \"aryan_resume.pdf\",\n    \"summary\": \"Aryan Saini is a B.Tech. Computer Science student specializing in AI & Machine Learning. He has developed several impactful projects, including a multimodal video sentiment analysis model achieving 68% accuracy, an AI learning assistant using a RAG pipeline, a tennis match analysis system with custom YOLOv8 detection and CNN-based shot trajectory analysis, and a sign language recognition system using MediaPipe Holistic and TensorFlow. His technical skills include PyTorch, TensorFlow, Scikit-learn, Computer Vision, NLP, and Python. He holds certifications in Deep Learning from Nvidia and PyTorch from Udemy.\",\n    \"questions\": [\n        \"What specific technique did Aryan Saini employ to improve the retrieval accuracy and response time for the AstraLearn project?\",\n        \"In the Tennis Match Analysis System project, what was the precision achieved for player/ball detection using the custom YOLOv8 model?\",\n        \"For the Sign Language Recognition System, what was the primary library or framework used for detecting hand and body gestures?\"\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Http Ask Question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"question\": \"mollit elit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/ask",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"ask"
+							]
+						},
+						"description": "Answer a free-form question about the uploaded document.\n\nThis endpoint uses AI to answer user questions based on the content\nof the most recently uploaded document. The AI is instructed to base\nanswers only on the document content, not external knowledge.\n\nArgs:\n    request (AskRequest): Contains the user's question\n    \nReturns:\n    dict: Contains the AI-generated answer\n    \nRaises:\n    HTTPException:\n        - 400: If no document has been uploaded\n        - 500: If answer generation fails\n        \nExample Response:\n    {\n        \"answer\": \"Based on the document, the main topic is...\"\n    }"
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"question\": \"mollit elit\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/ask",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"ask"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						},
+						{
+							"name": "Validation Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"question\": \"mollit elit\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/ask",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"ask"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"nulla dolore consequat\",\n        \"adipisicing amet quis anim\"\n      ],\n      \"msg\": \"Lorem\",\n      \"type\": \"ipsum velit aliquip\"\n    },\n    {\n      \"loc\": [\n        \"tempor\",\n        \"dolor cupidatat\"\n      ],\n      \"msg\": \"cupidatat deserunt elit\",\n      \"type\": \"laborum et adipisicing ipsum\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Http Ask Question",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"question\": \"Give me a summary of the uploaded document.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/ask",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"ask"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 13 Jul 2025 13:13:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "356"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "rndr-id",
+									"value": "6878c609-adf2-492f"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "95e909000a2822a8-DEL"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"answer\": \"The document outlines the profile of Aryan Saini, an individual pursuing a B.Tech. in Computer Science (Artificial Intelligence & Machine Learning) at Noida Institute of Engineering and Technology. It details his projects, including Multimodal Video Sentiment Analysis, AstraLearn (an AI learning assistant), a Tennis Match Analysis System, and a Sign Language Recognition System. The document also lists his CGPA, coursework, technical skills in Core ML/DL, programming languages, Deep Learning, and MLOps, as well as certifications in Fundamentals of Deep Learning and PyTorch for Deep Learning.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Http Regenerate Questions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/regenerate-questions?num_questions=3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"regenerate-questions"
+							],
+							"query": [
+								{
+									"key": "num_questions",
+									"value": "3"
+								}
+							]
+						},
+						"description": "Generate new challenge questions for the current document.\n\nThis endpoint creates a fresh set of AI-generated questions based on\nthe currently uploaded document. Useful when users want different\nquestions or want to adjust the number of questions.\n\nArgs:\n    num_questions (int): Number of questions to generate (3-10)\n    \nReturns:\n    dict: Contains the list of newly generated questions\n    \nRaises:\n    HTTPException:\n        - 400: If no document uploaded or invalid num_questions\n        - 500: If question generation fails\n        \nExample Response:\n    {\n        \"questions\": [\"What is the methodology?\", \"What are the results?\", \"...\"]\n    }"
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/regenerate-questions?num_questions=3",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"regenerate-questions"
+									],
+									"query": [
+										{
+											"key": "num_questions",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						},
+						{
+							"name": "Validation Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/regenerate-questions?num_questions=3",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"regenerate-questions"
+									],
+									"query": [
+										{
+											"key": "num_questions",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"nulla dolore consequat\",\n        \"adipisicing amet quis anim\"\n      ],\n      \"msg\": \"Lorem\",\n      \"type\": \"ipsum velit aliquip\"\n    },\n    {\n      \"loc\": [\n        \"tempor\",\n        \"dolor cupidatat\"\n      ],\n      \"msg\": \"cupidatat deserunt elit\",\n      \"type\": \"laborum et adipisicing ipsum\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Http Regenerate Questions",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/regenerate-questions?num_questions=3",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"regenerate-questions"
+									],
+									"query": [
+										{
+											"key": "num_questions",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 13 Jul 2025 13:13:26 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "334"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "rndr-id",
+									"value": "4a89c6e5-2a8c-4625"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "95e9099dfb1a22a8-DEL"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"questions\": [\n        \"What specific fusion model architecture did Aryan Saini employ for Multimodal Video Sentiment Analysis, and what were the reported accuracies for sentiment and emotion recognition?\",\n        \"Describe the key components and technologies used in the AstraLearn project to create an AI learning assistant with personalized study plans and PDF-based question answering.\",\n        \"How did Aryan Saini's Tennis Match Analysis System utilize computer vision techniques to enable player/ball detection, real-time tracking, and shot trajectory analysis?\"\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Http Evaluate Challenge",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"question\": \"aliqua nisi enim id eu\",\n  \"answer\": \"et incididunt Duis voluptate\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/challenge",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"challenge"
+							]
+						},
+						"description": "Evaluate a user's answer to a challenge question.\n\nThis endpoint uses AI to evaluate whether a user's answer to a challenge\nquestion is correct based on the document content. The AI provides both\na correctness assessment and detailed feedback.\n\nArgs:\n    request (ChallengeRequest): Contains the question and user's answer\n    \nReturns:\n    dict: Contains evaluation feedback and correctness boolean\n    \nRaises:\n    HTTPException:\n        - 400: If no document has been uploaded\n        - 500: If evaluation fails\n        \nExample Response:\n    {\n        \"evaluation\": \"Your answer is correct because...\",\n        \"is_correct\": true\n    }"
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"question\": \"aliqua nisi enim id eu\",\n  \"answer\": \"et incididunt Duis voluptate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/challenge",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"challenge"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						},
+						{
+							"name": "Validation Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"question\": \"aliqua nisi enim id eu\",\n  \"answer\": \"et incididunt Duis voluptate\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/challenge",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"challenge"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"nulla dolore consequat\",\n        \"adipisicing amet quis anim\"\n      ],\n      \"msg\": \"Lorem\",\n      \"type\": \"ipsum velit aliquip\"\n    },\n    {\n      \"loc\": [\n        \"tempor\",\n        \"dolor cupidatat\"\n      ],\n      \"msg\": \"cupidatat deserunt elit\",\n      \"type\": \"laborum et adipisicing ipsum\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Http Evaluate Challenge",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"question\": \"This resume is about which person?\",\n  \"answer\": \"The resume is about Aryan Saini.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/challenge",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"challenge"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 13 Jul 2025 13:16:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "139"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "rndr-id",
+									"value": "ff273c9f-fc49-43a3"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "cf-cache-status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "95e90e44387f5526-DEL"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"evaluation\": \"The user's answer correctly identifies the person the resume is about, which is Aryan Saini, as stated at the very beginning of the document.\",\n    \"is_correct\": true\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Root",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "Health check endpoint to verify the API is running."
+			},
+			"response": [
+				{
+					"name": "Successful Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{}"
+				}
+			]
+		},
+		{
+			"name": "Options Handler",
+			"request": {
+				"method": "OPTIONS",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/:path",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						":path"
+					],
+					"variable": [
+						{
+							"key": "path",
+							"value": "ex sint ad",
+							"description": "(Required) "
+						}
+					]
+				},
+				"description": "Handle OPTIONS requests for CORS preflight"
+			},
+			"response": [
+				{
+					"name": "Successful Response",
+					"originalRequest": {
+						"method": "OPTIONS",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/:path",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								":path"
+							],
+							"variable": [
+								{
+									"key": "path",
+									"value": "ex sint ad",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{}"
+				},
+				{
+					"name": "Validation Error",
+					"originalRequest": {
+						"method": "OPTIONS",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/:path",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								":path"
+							],
+							"variable": [
+								{
+									"key": "path",
+									"value": "ex sint ad",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"nulla dolore consequat\",\n        \"adipisicing amet quis anim\"\n      ],\n      \"msg\": \"Lorem\",\n      \"type\": \"ipsum velit aliquip\"\n    },\n    {\n      \"loc\": [\n        \"tempor\",\n        \"dolor cupidatat\"\n      ],\n      \"msg\": \"cupidatat deserunt elit\",\n      \"type\": \"laborum et adipisicing ipsum\"\n    }\n  ]\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://smart-assistant-backend-fnnv.onrender.com",
+			"type": "string"
+		}
+	]
+}

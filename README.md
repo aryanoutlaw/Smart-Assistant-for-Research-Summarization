@@ -6,6 +6,8 @@ A modern, AI-powered document assistant that allows you to upload PDF or TXT doc
 
 📫 [**View Postman Collection**](https://aryansaini-1859250.postman.co/workspace/3f56f51a-c3bb-41cf-808b-3ed26afa082e/collection/46717309-90dab571-ee00-4327-a871-3cef0dd98659?action=share&source=copy-link&creator=46717309)
 
+### Checkout the sample video:
+https://github.com/user-attachments/assets/cdf22b1e-eb21-403d-a7ff-e50ea2c376f8
 
 ## Features
 

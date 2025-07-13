@@ -1,41 +1,12 @@
-/**
- * API Service Module
- * 
- * This module provides a centralized service for all HTTP communication between
- * the React frontend and the FastAPI backend. It handles document upload,
- * question generation, Q&A functionality, and answer evaluation.
- * 
- * Key Features:
- * - Axios-based HTTP client with centralized configuration
- * - TypeScript interfaces for type-safe API communication
- * - File upload handling with multipart/form-data
- * - Consistent error handling across all endpoints
- * - RESTful API integration with FastAPI backend
- * 
- * API Endpoints:
- * - POST /api/upload: Upload and process documents
- * - POST /api/regenerate-questions: Generate new challenge questions
- * - POST /api/ask: Ask questions about document content
- * - POST /api/challenge: Evaluate challenge answers
- * 
- * Base URL: http://localhost:8000 (FastAPI development server)
- * 
- * Dependencies:
- * - axios: HTTP client library for making API requests
- * 
- * @author aryanoutlaw
- * @version 1.0.0
- */
-
 import axios from 'axios';
 
 // --- API Configuration ---
 
 /**
  * Base URL for the FastAPI backend server
- * Points to the development server running on localhost:8000
+ * Uses environment variable for deployment flexibility
  */
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 /**
  * Configured Axios instance for API communication

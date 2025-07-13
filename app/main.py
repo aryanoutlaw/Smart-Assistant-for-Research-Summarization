@@ -1,29 +1,3 @@
-"""
-GenAI Document Assistant - FastAPI Backend
-
-This module provides a FastAPI web application that serves as the backend for an AI-powered
-document assistant. The application allows users to upload documents (PDF/TXT), generate
-AI-powered summaries, ask questions about the content, and participate in comprehension
-challenges.
-
-Key Features:
-- Document upload and text extraction (PDF/TXT support)
-- AI-powered document summarization using Google Gemini
-- Free-form question answering about document content
-- Challenge mode with AI-generated questions and answer evaluation
-- In-memory document storage for session-based interactions
-- CORS-enabled API for React frontend integration
-
-Dependencies:
-- FastAPI: Web framework for building APIs
-- Google Generative AI: For AI-powered text processing
-- PyMuPDF: For PDF text extraction
-- Pydantic: For request/response validation
-
-Author: aryanoutlaw
-Version: 1.0.0
-"""
-
 import json
 import re
 from fastapi import FastAPI, UploadFile, File, HTTPException
@@ -42,13 +16,12 @@ from app.llm import (
 # --- In-Memory Storage ---
 # Simple dictionary-based storage for the current session's document data
 # This stores the processed document content and AI-generated materials
-# NOTE: In production, this should be replaced with a proper database
-# or Redis for persistence and multi-user support
+
 document_store = {
-    "filename": "",      # Original filename of the uploaded document
-    "text": "",          # Extracted text content from the document
-    "summary": "",       # AI-generated summary of the document
-    "questions": [],     # List of AI-generated challenge questions
+    "filename": "",      
+    "text": "",         
+    "summary": "",       
+    "questions": [],    
 }
 
 # --- Pydantic Models for API Request/Response Validation ---
@@ -82,13 +55,15 @@ app = FastAPI(
 )
 
 # Configure CORS middleware to allow React frontend communication
-# This enables the frontend (running on localhost:3000) to make API calls
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React development server URL
-    allow_credentials=True,                   # Allow cookies and authentication
-    allow_methods=["*"],                      # Allow all HTTP methods
-    allow_headers=["*"],                      # Allow all headers
+    allow_origins=[
+        "http://localhost:3000", 
+        "https://genai-assistant.vercel.app/", 
+        "https://*.render.com"],  
+    allow_credentials=True,                  
+    allow_methods=["*"],                     
+    allow_headers=["*"],                     
 )
 
 # --- API Endpoints ---
@@ -345,4 +320,9 @@ async def http_evaluate_challenge(request: ChallengeRequest):
             detail=f"An error occurred: {e}"
         )
 
- 
+if __name__ == "__main__":
+    import uvicorn
+    import os
+    
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

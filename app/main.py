@@ -1,5 +1,6 @@
 import json
 import re
+import os
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -55,18 +56,48 @@ app = FastAPI(
 )
 
 # Configure CORS middleware to allow React frontend communication
+# Get allowed origins from environment variable or use defaults
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "").split(",") if os.getenv("ALLOWED_ORIGINS") else [
+    "http://localhost:3000", 
+    "https://genai-assistant.vercel.app"
+]
+
+# Remove empty strings and strip whitespace
+allowed_origins = [origin.strip() for origin in allowed_origins if origin.strip()]
+
+# Print allowed origins for debugging
+print(f"Allowed CORS origins: {allowed_origins}")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000", 
-        "https://genai-assistant.vercel.app/", 
-        "https://*.render.com"],  
+    allow_origins=allowed_origins,
     allow_credentials=True,                  
     allow_methods=["*"],                     
     allow_headers=["*"],                     
 )
 
 # --- API Endpoints ---
+
+@app.get("/", tags=["Health"])
+async def root():
+    """
+    Health check endpoint to verify the API is running.
+    """
+    return {"message": "GenAI Document Assistant API is running!"}
+
+@app.get("/api/health", tags=["Health"])
+async def health_check():
+    """
+    Health check endpoint with CORS headers for debugging.
+    """
+    return {"status": "healthy", "message": "API is running"}
+
+@app.options("/{path:path}", tags=["CORS"])
+async def options_handler(path: str):
+    """
+    Handle OPTIONS requests for CORS preflight
+    """
+    return {}
 
 @app.post("/api/upload", tags=["API"])
 async def http_upload_document(file: UploadFile = File(...), num_questions: int = 3):

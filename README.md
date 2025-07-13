@@ -1,8 +1,11 @@
-# GenAI Document Assistant
+# Smart Assistant for Research Summarization
 
 A modern, AI-powered document assistant that allows you to upload PDF or TXT documents and interact with them through intelligent Q&A, automatic summarization, and comprehension challenges. Built with React and FastAPI.
 
 🌐 **Live Demo**: [https://genai-assistant.vercel.app/](https://genai-assistant.vercel.app/)
+
+📫 [**View Postman Collection**](https://aryansaini-1859250.postman.co/workspace/3f56f51a-c3bb-41cf-808b-3ed26afa082e/collection/46717309-90dab571-ee00-4327-a871-3cef0dd98659?action=share&source=copy-link&creator=46717309)
+
 
 ## Features
 

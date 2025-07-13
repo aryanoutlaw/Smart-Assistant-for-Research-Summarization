@@ -1,35 +1,3 @@
-"""
-GenAI Document Assistant - Large Language Model Integration
-
-This module handles all interactions with Google's Gemini AI model for document
-processing tasks. It provides functions for generating summaries, creating
-comprehension questions, answering user queries, and evaluating user responses.
-
-The module includes a fallback mechanism that provides dummy responses when
-the Google API key is not configured, allowing for development and testing
-without requiring API access.
-
-Key Features:
-- AI-powered document summarization (max 150 words)
-- Logic-based question generation for comprehension testing
-- Context-aware question answering based on document content
-- Automated answer evaluation with detailed feedback
-- Graceful fallback to dummy responses for development
-
-AI Model Configuration:
-- Uses Google Gemini 2.5 Flash Lite Preview model
-- Configured with environment variable GOOGLE_API_KEY
-- Implements robust error handling for API failures
-
-Dependencies:
-- google.generativeai: Google's generative AI library
-- python-dotenv: For environment variable management
-- re: For regex pattern matching in response processing
-
-Author: aryanoutlaw
-Version: 1.0.0
-"""
-
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
